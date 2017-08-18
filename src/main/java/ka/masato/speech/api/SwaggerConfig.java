@@ -27,7 +27,7 @@ public class SwaggerConfig {
 	
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-			.title("音声認識API")
+			.title("Speech Recognition API")
 	        .version("1.0")
 	        .build();
 	}

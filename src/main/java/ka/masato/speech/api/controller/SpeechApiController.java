@@ -2,6 +2,9 @@ package ka.masato.speech.api.controller;
 
 import java.io.IOException;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import ka.masato.speech.api.client.model.RecognitionResult;
@@ -29,15 +33,18 @@ public class SpeechApiController {
 	}
 	
 	@PostMapping()
-	@ApiOperation(value = "音声認識を実行数する")
+	@ApiOperation(value = "get result of speech recognition")
 	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = "音声認識の結果取得"),
-            @ApiResponse(code = 400, message = "該当するグループが存在しない。")
+            @ApiResponse(code = 200, message = "Success speech recognition."),
+            @ApiResponse(code = 400, message = "Same value validation wrong.")
 	}
     )
-	public RecognitionResult speechRecognize(@Validated @RequestParam String formatType, 
-											 @Validated @RequestParam Long sampleRate, 
-											 @RequestBody MultipartFile audio) throws IOException{
+	public RecognitionResult speechRecognize(@ApiParam(value="Required parameter. You must set the audio format. Now can set only audio/wav.")
+	                                         @RequestParam(required=true)String formatType, 
+											 @ApiParam(value="Required parameter. You must set the audio sampling rate. for ecample 16000.")
+	                                         @RequestParam(required=true)Long sampleRate, 
+											 @ApiParam(value="You must set audio file as PCM format and 16kHz sampling rate.")
+	                                         @RequestBody MultipartFile audio) throws IOException{
 
 		RecognitionResult result = speechRecognitionService.recognition(sampleRate.toString(), 
 																		formatType, 
