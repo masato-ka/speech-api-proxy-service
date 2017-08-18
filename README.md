@@ -14,12 +14,17 @@ Overview
 ## Build
 
 ~~~~
+$ git clone https://github.com/masato-ka/speech-api-proxy-service.git
+$ cd speech-api-proxy-service
+$ mvn package -DskipTests=true
 ~~~~
+
+And create jar file in speech-api-proxy-service/target folder.
 
 ## Run the service.
 
 ~~~
-$java -Dbing.recog.api.subscription=Your Azure subscription -jar speech-api-service.jar 
+$java -Dbing.recog.api.subscription=Your Azure subscription -jar target/speech-api-service-0.0.1-SNAPSHOT.jar 
 ~~~
 
 ## Request example
@@ -42,7 +47,6 @@ Now, this service suported below parameters
 
 [MIT LICENCE](https://github.com/masato-ka/geo-hash-potate/blob/master/LICENSE.txt)
 
-The library do not depends other library.
 
 ## Author
 
