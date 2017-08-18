@@ -38,9 +38,10 @@ curl -v https://[your hosting domain]/api/v1/recognizer?formatType=audio/pcm?sam
 
 Now, this service suported below parameters
 
-|param name| value |description|
-|formatType|audio/pcm| encoding format for uploading audio file.| 
-|sampleRate|16000|sample rate for uploading audio file |
+|param name  | value       |description   |
+|:-----------|------------:|:------------:|
+|formatType  |audio/pcm    | encoding format for uploading audio file.|
+|sampleRate  |16000        |sample rate for uploading audio file |
  
 
 ## Licence
