@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,6 +25,7 @@ public class BingRecogTokenManager {
 		restTemplate = restTemplateBuilder.additionalInterceptors(interceptors).build();
 	}
 	
+	@Cacheable
 	public String getAuthenticationToken(){
 	    URI uri = UriComponentsBuilder.fromUriString(authUrl).build().toUri();	
 		String result = restTemplate.postForObject(uri, null, String.class);
