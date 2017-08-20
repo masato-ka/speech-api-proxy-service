@@ -31,7 +31,7 @@ public class SpeechApiController {
 	private final SpeechRecognitionService speechRecognitionService;
 	
 	static final String AUDIO_FORMAT_VALIDATION = "^audio/pcm$";
-	static final String SAMPLING_VALIDATION = "^16000$";
+	static final String SAMPLING_VALIDATION = "^16000$|^44100$";
 	static final String LANGUAGE_VALIDATION = "^en-US$|^ja-JP$";
 	static final String MODE_VALIDATION = "^conversation$|^interactive$|^dictation$";
 	
@@ -48,7 +48,7 @@ public class SpeechApiController {
     )
 	public RecognitionResult speechRecognize(@ApiParam(value="Required parameter. You must set the audio format. Now can set only audio/pcm.")
 	                                         @RequestParam(required=true)@Valid @Pattern(regexp = AUDIO_FORMAT_VALIDATION)String formatType, 
-											 @ApiParam(value="Required parameter. You must set the audio sampling rate. for ecample 16000.")
+											 @ApiParam(value="Required parameter. You must set the audio sampling rate. Now accepted values are 16000 or 44100.")
 	                                         @RequestParam(required=true)@Valid @Pattern(regexp = SAMPLING_VALIDATION)String sampleRate,
 	                                         @ApiParam(value="Option parameter. You can set the language. Default value is en-US. Other optional is ja-JP")
 	                                         @RequestParam(required=false, defaultValue="en-US")@Valid @Pattern(regexp = LANGUAGE_VALIDATION)String lang,
