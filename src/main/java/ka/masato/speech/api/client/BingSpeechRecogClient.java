@@ -21,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class BingSpeechRecogClient {
 	@Value("${bing.speech.recognition.api:https://speech.platform.bing.com}/speech/recognition/{type}/cognitiveservices/v1?language={language}")
-	                        //https://speech.platform.bing.com/speech/recognition/conversation/cognitiveservices/v1?language=en-US
-	String speechApiUri;//="https://speech.platform.bing.com/speech/recognition/conversation/cognitiveservices/v1?language=en-US";
+	String speechApiUri;
 	
 	private final RestTemplate restTemplate;
 	

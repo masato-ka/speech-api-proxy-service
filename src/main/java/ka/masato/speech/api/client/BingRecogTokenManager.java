@@ -16,8 +16,8 @@ public class BingRecogTokenManager {
 
 	@Value("${bing.recog.api.subscription}")
 	private String subScription; 
-	//@Value("${azure.face.api.ServerUrl}/face/v1.0/identify")
-	private String authUrl = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
+	@Value("${bing.auth.url:https://api.cognitive.microsoft.com/sts/v1.0/issueToken}")
+	private String authUrl;
 	
 	private RestTemplate restTemplate;
 	
@@ -25,7 +25,7 @@ public class BingRecogTokenManager {
 		restTemplate = restTemplateBuilder.additionalInterceptors(interceptors).build();
 	}
 	
-	@Cacheable
+	@Cacheable(value="bingJwtToken", key="token")
 	public String getAuthenticationToken(){
 	    URI uri = UriComponentsBuilder.fromUriString(authUrl).build().toUri();	
 		String result = restTemplate.postForObject(uri, null, String.class);
