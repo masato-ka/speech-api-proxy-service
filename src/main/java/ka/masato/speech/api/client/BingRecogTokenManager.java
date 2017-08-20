@@ -25,7 +25,7 @@ public class BingRecogTokenManager {
 		restTemplate = restTemplateBuilder.additionalInterceptors(interceptors).build();
 	}
 	
-	@Cacheable(value="bingJwtToken", key="token")
+	@Cacheable(value="bingJwtToken")
 	public String getAuthenticationToken(){
 	    URI uri = UriComponentsBuilder.fromUriString(authUrl).build().toUri();	
 		String result = restTemplate.postForObject(uri, null, String.class);
