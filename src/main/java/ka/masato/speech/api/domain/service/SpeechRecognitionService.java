@@ -12,8 +12,8 @@ public class SpeechRecognitionService {
 		this.bingSpeechRecogClient = bingSpeechRecogClient;
 	}
 	
-	public RecognitionResult recognition(String sampleRate, String formatType, byte[] wave){
-		RecognitionResult result = bingSpeechRecogClient.recognition(sampleRate, formatType, wave,  "conversation", "en-US");
+	public RecognitionResult recognition(String sampleRate, String formatType, String lang, byte[] wave, String mode){
+		RecognitionResult result = bingSpeechRecogClient.recognition(sampleRate, formatType, wave,  mode, lang);
 	 	return result;
 	}
 	

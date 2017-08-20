@@ -3,6 +3,7 @@ package ka.masato.speech.api.controller;
 import java.io.IOException;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +25,15 @@ import ka.masato.speech.api.domain.service.SpeechRecognitionService;
 @RestController
 @RequestMapping("/api/v1/speech/recognizer")
 @Api(value="speechApiController")
+@Validated
 public class SpeechApiController {
 
 	private final SpeechRecognitionService speechRecognitionService;
+	
+	static final String AUDIO_FORMAT_VALIDATION = "^audio/wav$";
+	static final String SAMPLING_VALIDATION = "^16000$";
+	static final String LANGUAGE_VALIDATION = "^en-US$|^ja-JP$";
+	static final String MODE_VALIDATION = "^conversation$|^interactive$|^dictation$";
 	
 	public SpeechApiController(SpeechRecognitionService speechRecognitionService){
 		this.speechRecognitionService = speechRecognitionService;
@@ -40,15 +47,22 @@ public class SpeechApiController {
 	}
     )
 	public RecognitionResult speechRecognize(@ApiParam(value="Required parameter. You must set the audio format. Now can set only audio/wav.")
-	                                         @RequestParam(required=true)String formatType, 
+	                                         @RequestParam(required=true)@Valid @Pattern(regexp = AUDIO_FORMAT_VALIDATION)String formatType, 
 											 @ApiParam(value="Required parameter. You must set the audio sampling rate. for ecample 16000.")
-	                                         @RequestParam(required=true)Long sampleRate, 
+	                                         @RequestParam(required=true)@Valid @Pattern(regexp = SAMPLING_VALIDATION)String sampleRate,
+	                                         @ApiParam(value="Option parameter. You can set the language. Default value is en-US. Other optional is ja-JP")
+	                                         @RequestParam(required=false, defaultValue="en-US")@Valid @Pattern(regexp = LANGUAGE_VALIDATION)String lang,
 											 @ApiParam(value="You must set audio file as PCM format and 16kHz sampling rate.")
-	                                         @RequestBody MultipartFile audio) throws IOException{
+	                                         @RequestBody MultipartFile audio,
+	                                         @ApiParam(value="Option parameter. You can set the recognition type. Default value is conversation.")
+    										 @RequestParam(required=false, defaultValue="conversation")@Valid @Pattern(regexp = MODE_VALIDATION)String mode
+    										 ) throws IOException{
 
-		RecognitionResult result = speechRecognitionService.recognition(sampleRate.toString(), 
-																		formatType, 
-																		audio.getBytes());
+		RecognitionResult result = speechRecognitionService.recognition(sampleRate, 
+																		formatType,
+														                lang,
+																		audio.getBytes(),
+																		mode);
 		return result;
 	}
 }
