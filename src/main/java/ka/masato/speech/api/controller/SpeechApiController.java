@@ -30,7 +30,7 @@ public class SpeechApiController {
 
 	private final SpeechRecognitionService speechRecognitionService;
 	
-	static final String AUDIO_FORMAT_VALIDATION = "^audio/wav$";
+	static final String AUDIO_FORMAT_VALIDATION = "^audio/pcm$";
 	static final String SAMPLING_VALIDATION = "^16000$";
 	static final String LANGUAGE_VALIDATION = "^en-US$|^ja-JP$";
 	static final String MODE_VALIDATION = "^conversation$|^interactive$|^dictation$";
@@ -46,7 +46,7 @@ public class SpeechApiController {
             @ApiResponse(code = 400, message = "Same value validation wrong.")
 	}
     )
-	public RecognitionResult speechRecognize(@ApiParam(value="Required parameter. You must set the audio format. Now can set only audio/wav.")
+	public RecognitionResult speechRecognize(@ApiParam(value="Required parameter. You must set the audio format. Now can set only audio/pcm.")
 	                                         @RequestParam(required=true)@Valid @Pattern(regexp = AUDIO_FORMAT_VALIDATION)String formatType, 
 											 @ApiParam(value="Required parameter. You must set the audio sampling rate. for ecample 16000.")
 	                                         @RequestParam(required=true)@Valid @Pattern(regexp = SAMPLING_VALIDATION)String sampleRate,
