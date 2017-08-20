@@ -8,7 +8,8 @@ Overview
  This service is proxy for Bing Speech API. You only upload wave(PCM) file as multipart form data.
  
   See in below swagger document after running this service.
-  http://localhost:8080/swagger-ui.html
+
+  [Swagger document](http://localhost:8080/swagger-ui.html)
 
 
 ## Build
@@ -40,9 +41,14 @@ Now, this service suported below parameters
 
 |param name  | value       |description   |
 |:-----------|------------:|:------------:|
-|formatType  |audio/pcm    | encoding format for uploading audio file.|
-|sampleRate  |16000        |sample rate for uploading audio file |
- 
+|formatType(must)  |audio/pcm    |encoding format for uploading audio file.|
+|sampleRate(must)  |16000        |sample rate for uploading audio file |
+|lang(optional)    |en-US        |Define language. This proxy Default is en-US, and support ja-JP|
+|mode(optional)    |conversation |Define recognition mode. Other support values are interactive and dictation |
+
+And other options and value is see in
+
+[Convert speech to text with Microsoft APIs](https://docs.microsoft.com/ja-jp/azure/cognitive-services/speech/api-reference-rest/bingvoicerecognition)
 
 ## Licence
 
