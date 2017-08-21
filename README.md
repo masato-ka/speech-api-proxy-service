@@ -34,7 +34,7 @@ Get the result of speech recognition from Azure service.
 
 for example (PCM file and sampling rate is 16kHz)
 ~~~
-curl -v https://[your hosting domain]/api/v1/recognizer?formatType=audio/pcm?sampleRate=16000 --data-binary @wave file path
+curl -X POST --header 'Content-Type: multipart/form-data' 'http://localhost:8080/api/v1/speech/recognizer?formatType=audio%2Fpcm&sampleRate=16000&lang=en-US&mode=conversation' -F "audio=@Your file path" 
 ~~~
 
 Now, this service suported below parameters
