@@ -30,21 +30,16 @@ public class TokenHeaderInterceptor implements ClientHttpRequestInterceptor {
 
 		request.getHeaders().add("Authorization", "Bearer "+bingRecogTokenManager.getAuthenticationToken());
 		
-		
 		ClientHttpResponse response = null;
 		
-		try{
-			log.info("Request uri:" + request.getURI().toString());
-			response = execution.execute(request, body);
-		}catch(HttpClientErrorException e){
-			if(e.getStatusCode().equals(HttpStatus.FORBIDDEN)){
+		log.info("Request uri:" + request.getURI().toString());
+		response = execution.execute(request, body);
+		
+		if(response.getStatusCode()==HttpStatus.FORBIDDEN){
 				log.info("Expired authorization token. Retry authorization.");
 				bingRecogTokenManager.clearCacheTokenInfo();
 				request.getHeaders().add("Authorization", "Bearer "+bingRecogTokenManager.getAuthenticationToken());
 				response = execution.execute(request, body);
-			}else{
-				throw e;
-			}
 		}
 		
 	    //Override response header because Content-Type in response header from Bing API is always text/plain(ioi).

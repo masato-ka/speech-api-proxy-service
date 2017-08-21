@@ -35,7 +35,7 @@ public class BingRecogTokenManager {
 		return result;
 	}
 
-	@CacheEvict
+	@CacheEvict(value="bingJwtToken")
 	public void clearCacheTokenInfo() {
 		log.info("Rfresh token cache.");
 		// Clear token info from cache.
