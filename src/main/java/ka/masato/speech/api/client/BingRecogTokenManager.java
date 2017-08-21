@@ -4,13 +4,16 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ka.masato.speech.api.client.interceptor.AuthRequestHeaderInterceptor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class BingRecogTokenManager {
 
@@ -30,6 +33,13 @@ public class BingRecogTokenManager {
 	    URI uri = UriComponentsBuilder.fromUriString(authUrl).build().toUri();	
 		String result = restTemplate.postForObject(uri, null, String.class);
 		return result;
+	}
+
+	@CacheEvict
+	public void clearCacheTokenInfo() {
+		log.info("Rfresh token cache.");
+		// Clear token info from cache.
+		//This implementation process transfer CacheEvict
 	}
 	
 }

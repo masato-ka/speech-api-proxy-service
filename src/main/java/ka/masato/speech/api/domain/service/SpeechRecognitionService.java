@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ka.masato.speech.api.client.BingSpeechRecogClient;
 import ka.masato.speech.api.client.model.RecognitionResult;
 
+
 @Service
 public class SpeechRecognitionService {
 
