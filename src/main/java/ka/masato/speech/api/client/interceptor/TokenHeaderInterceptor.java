@@ -1,6 +1,8 @@
 package ka.masato.speech.api.client.interceptor;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,9 @@ public class TokenHeaderInterceptor implements ClientHttpRequestInterceptor {
 				log.info("Expired authorization token. Retry authorization.");
 				bingRecogTokenManager.clearCacheTokenInfo();
 				request.getHeaders().add("Authorization", "Bearer "+bingRecogTokenManager.getAuthenticationToken());
+				List<String> token = new ArrayList<>();
+				token.add("Bearer "+bingRecogTokenManager.getAuthenticationToken());
+				request.getHeaders().put("Authorization", token);
 				response = execution.execute(request, body);
 		}
 		
