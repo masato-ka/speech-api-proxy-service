@@ -1,0 +1,5 @@
+language: java
+
+install: skip
+
+script: mvn package -DskipTests=true
