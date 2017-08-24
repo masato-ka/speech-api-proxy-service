@@ -11,4 +11,5 @@ deploy:
   file: target/speech-api-service-0.0.1-SNAPSHOT.jar
   skip_cleanup: true
   on:
-    tags: true
+    tags: false
+  overwrite: true
