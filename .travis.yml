@@ -7,7 +7,7 @@ script: mvn package -DskipTests=true
 
 deploy:
   provider: releases
-  api_key: $GITHUB_OAUTH_TOKEN
+  api_key: $GITHUB_TOKEN
   file: target/speech-api-service-0.0.1-SNAPSHOT.jar
   skip_cleanup: true
   on:
